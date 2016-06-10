@@ -151,8 +151,7 @@
 						<td><label for="SelectMuni">Concello:</label></td>
 						<td>
 							<div class="buscador">
-								<select id="SelectMuni" style="display:block;">
-								  <option value="-1">Seleccione Concello</option>
+								<select id="SelectMuni" style="display:block;" data-dojo-attach-event="onchange:cargaParroquias">
 								</select>
 								<div id="lupa_muni" class="esriGeocoderSearch esriGeocoderIcon" style="display:none;"></div>
 							</div>
@@ -163,7 +162,6 @@
 						<td>
 							<div id="divParroquias" class="buscador">
 								<select id="SelectParroquia" style="display:none;">
-								  <option value="-1">Seleccione parroquia</option>
 								</select>
 								
 								<div id="lupa_parroquia" class="esriGeocoderSearch esriGeocoderIcon" style="display:none;"></div>
