@@ -106,20 +106,34 @@
     cargaParroquias: function() {
         //Recogemos concello elegido en la función anterior
         // <option value="-1">Seleccione parroquia</option>
-        var selec_concello = document.getElementById("SelectParroquia").text;
-        alert(selec_concello);
+        // var selec_concello = document.getElementById("SelectMuni").value;
+        var selec_concello = document.getElementById("SelectMuni").selectedOptions[0].text;
+        var parro_concello = document.getElementById("SelectMuni").selectedOptions[0].value;
+        //alert(selec_concello);
+        var num_options = document.getElementById("SelectParroquia").options.length;
+        if (num_options>1){
+            for (var i=0; i < num_options ; i++) {
+                var list = document.getElementById("SelectParroquia");
+                list.removeChild(list.childNodes[0]); 
+            }       
+        }
 
 
-        document.getElementById("SelectParroquia").children.remove;
-        var option = document.createElement("option");
-        option.text = "Seleccione Parroquia";
-        option.value = -1;
-        document.getElementById("SelectParroquia").add(option);
+        // document.getElementById("SelectParroquia").children.remove;
+        // var option = document.createElement("option");
+        // option.text = "Seleccione Parroquia";
+        // option.value = -1;
+        // document.getElementById("SelectParroquia").add(option);
+
         //document.getElementById("SelectParroquia").append('<option value="' + -1 + '">Seleccione Parroquia</option>');
+        var urlLimites = "http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer/18/?f=json";
+        http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer/18/query?where=CodCONC =Brión&outFields=CODPARRO,PARROQUIA&orderByFields=PARROQUIA&returnGeometry=false&returnDistinctValues=true
         var c = [];
         var b = [];
+
         var a = esri.request({
-            url: urlLimites + "/18/query?where=CodCONC =" + d + "&outFields=CODPARRO,PARROQUIA&orderByFields=PARROQUIA&returnGeometry=false&returnDistinctValues=true",
+            url: urlLimites + "/18/query?where=CodCONC =" + parro_concello + "&outFields=CODPARRO,PARROQUIA&orderByFields=PARROQUIA&returnGeometry=false&returnDistinctValues=true",
+            // url: urlLimites + "/18/query?where=CodCONC =" + d + "&outFields=CODPARRO,PARROQUIA&orderByFields=PARROQUIA&returnGeometry=false&returnDistinctValues=true",
             content: {
                 f: "json"
             },
@@ -128,12 +142,20 @@
         });
         a.then(function(g) {
             var e = g.features;
-            $.each(e, function(i, l) {
-                var m = l.attributes.CODPARRO;
-                var k = l.attributes.PARROQUIA;
-                b.push(k);
-                c.push(m)
-            });
+            var num_enti = e.features.length;
+            for (var count = 0; count <= num_enti - 1 ; count++){
+                var m = g[count].attributes.CODPARRO;
+                var k = g[count].attributes.PARROQUIA;
+                d.push(m);
+                c.push(k);
+            }
+            // $.each(e, function(i, l) {
+            //     var m = l.attributes.CODPARRO;
+            //     var k = l.attributes.PARROQUIA;
+            //     b.push(k);
+            //     c.push(m)
+            // });
+
             var f = dojo.byId("SelectParroquia");
             for (var h = 0; h < c.length; h++) {
                 var j = document.createElement("option");
