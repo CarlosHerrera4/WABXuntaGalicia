@@ -143,7 +143,7 @@
 								  <option value="32">Ourense</option>
 								  <option value="36">Pontevedra</option>
 								</select>
-								<div id="lupa_provi" class="esriGeocoderSearch esriGeocoderIcon" style="display:none;"></div>
+								<div id="lupa_provi" class="esriGeocoderSearch esriGeocoderIcon" style="display:block;"></div>
 							</div>
 						</td>
 					</tr>
@@ -161,7 +161,7 @@
 						<td><label for="SelectParroquia">Parroquia:</label></td>
 						<td>
 							<div id="divParroquias" class="buscador">
-								<select id="SelectParroquia" style="display:none;">
+								<select id="SelectParroquia" style="display:none;" data-dojo-attach-event="onchange:cargaPoboacions">
 								</select>
 								
 								<div id="lupa_parroquia" class="esriGeocoderSearch esriGeocoderIcon" style="display:none;"></div>
@@ -173,7 +173,6 @@
 						<td>
 							<div id="divPoboacions" class="buscador">
 								<select id="SelectPobo" style="display:none;">
-								  <option value="-1">Seleccione poboación</option>
 								</select>
 								<div id="lupa_pobo" class="esriGeocoderSearch esriGeocoderIcon" style="display:none;"></div>
 							</div>

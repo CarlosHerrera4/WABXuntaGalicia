@@ -99,6 +99,7 @@
                 j.add(h)
             }
             document.getElementById("trConcellos").style.display = "block";
+            document.getElementById("lupa_muni").style.display = "block";
         })
       },
           
@@ -126,7 +127,7 @@
         // document.getElementById("SelectParroquia").add(option);
 
         //document.getElementById("SelectParroquia").append('<option value="' + -1 + '">Seleccione Parroquia</option>');
-        var urlLimites = "http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer/18/?f=json";
+        var urlLimites = "http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer";
         http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer/18/query?where=CodCONC =Brión&outFields=CODPARRO,PARROQUIA&orderByFields=PARROQUIA&returnGeometry=false&returnDistinctValues=true
         var c = [];
         var b = [];
@@ -142,11 +143,15 @@
         });
         a.then(function(g) {
             var e = g.features;
-            var num_enti = e.features.length;
+            debugger
+            //var num_enti = e.features.length;
+            var num_enti = e.length;
             for (var count = 0; count <= num_enti - 1 ; count++){
-                var m = g[count].attributes.CODPARRO;
-                var k = g[count].attributes.PARROQUIA;
-                d.push(m);
+                //var m = g[count].attributes.CODPARRO;
+                //var k = g[count].attributes.PARROQUIA;
+                var m = e[count].attributes.CODPARRO;
+                var k = e[count].attributes.PARROQUIA;
+                b.push(m);
                 c.push(k);
             }
             // $.each(e, function(i, l) {
@@ -159,12 +164,15 @@
             var f = dojo.byId("SelectParroquia");
             for (var h = 0; h < c.length; h++) {
                 var j = document.createElement("option");
-                j.value = c[h];
-                j.text = b[h];
+                j.value = b[h];
+                j.text = c[h];
                 f.add(j)
             }
-            document.getElementById("divParroquias").removeClass("precarga").addClass("buscador");
-            document.getElementById("SelectParroquia").show()
+ //document.getElementById("divParroquias").removeClass("precarga").addClass("buscador");
+            document.getElementById("trParroquias").style.display = "block";
+            document.getElementById("SelectParroquia").style.display = "block";
+            
+            //document.getElementById("SelectParroquia").show()
         })},
     
         
@@ -204,13 +212,17 @@
 
     
     consultaMuni: function(b, c) {
+        // Aquí la b es la url que representa el map service
+        // La c es el código del concello
         var e = new esri.tasks.QueryTask(b);
         var d = new esri.tasks.Query();
         d.returnGeometry = true;
         var a = "CODCONC= " + c;
         d.where = a;
+        //Método de la QueryTask. Los parámetros de la query están en d
         e.execute(d, showResults);
-        ShowBuscaXeral()},
+        ShowBuscaXeral()
+    },
 
     
     consultaParroquia: function(b, e) {
@@ -231,6 +243,58 @@
         c.where = a;
         d.execute(c, showResultsPoint);
         ShowBuscaXeral()
+        
+        
+//        function ShowBuscaXeral() {
+//
+//    if (dojo.coords("divAppContainer").h > 0) {
+//        dojo.replaceClass("divAppContainer", "hideContainerHeight", "showContainerHeight");
+//        dojo.byId('divAppContainer').style.height = '0px';
+//    }
+//    if (dojo.coords("divLayerContainer").h > 0) {
+//        dojo.replaceClass("divLayerContainer", "hideContainerHeight", "showContainerHeight");
+//        dojo.byId('divLayerContainer').style.height = '0px';
+//    }
+//    if (dojo.coords("divBookmarksContainer").h > 0) {
+//        dojo.replaceClass("divBookmarksContainer", "hideContainerHeight", "showContainerHeight");
+//        dojo.byId('divBookmarksContainer').style.height = '0px';
+//    }
+//    if (dojo.coords("divPrinterContainer").h > 0) {
+//        dojo.replaceClass("divPrinterContainer", "hideContainerHeight", "showContainerHeight");
+//        dojo.byId('divPrinterContainer').style.height = '0px';
+//    }
+//    if (dojo.coords("divAddressContainer").h > 0) {
+//        dojo.replaceClass("divAddressContainer", "hideContainerHeight", "showContainerHeight");
+//        dojo.byId('divAddressContainer').style.height = '0px';
+//    }	
+//    if (dojo.coords("divMedidasContainer").h > 0) {
+//        dojo.replaceClass("divMedidasContainer", "hideContainerHeight", "showContainerHeight");
+//        dojo.byId('divMedidasContainer').style.height = '0px';
+//    }
+//    if (dojo.coords("divNovaCapaContainer").h > 0) {
+//        dojo.replaceClass("divNovaCapaContainer", "hideContainerHeight", "showContainerHeight");
+//        dojo.byId('divNovaCapaContainer').style.height = '0px';
+//    }	
+//	var cellHeight = (isTablet || isMobileDevice) ? 340 : 340;
+//    if (dojo.coords("divBuscaXeralContainer").h > 0) {
+//        dojo.replaceClass("divBuscaXeralContainer", "hideContainerHeight", "showContainerHeight");
+//        dojo.byId('divBuscaXeralContainer').style.height = '0px';
+//    }
+//    else {
+//        dojo.byId('divBuscaXeralContainer').style.height = cellHeight + "px";
+//        var position = dojo.position("imgBuscaXeral");
+//        dojo.byId('divBuscaXeralContainer').style.top = (position.y + position.h ) + "px";
+//        dojo.byId('divBuscaXeralContainer').style.right = (document.body.offsetWidth - (position.x + position.w) ) + "px";
+//        dojo.replaceClass("divBuscaXeralContainer", "showContainerHeight", "hideContainerHeight");
+//    }
+//    measurement.clearResult();
+//    measurement.setTool("area", false);
+//    measurement.setTool("distance", false);
+//    //doIdentify = true;
+//    
+//}
+        
+        
     },
     
     showResults: function(a) {
