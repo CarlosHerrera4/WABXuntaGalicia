@@ -1,5 +1,5 @@
-    define(['dojo/_base/declare', 'jimu/BaseWidget'],
-  function(declare, BaseWidget) {
+    define(['dojo/_base/declare', 'jimu/BaseWidget', 'esri/geometry/Polygon'],
+  function(declare, BaseWidget, Polygon) {
     //To create a widget, you need to derive from BaseWidget.
     return declare([BaseWidget], {
       // Custom widget code goes here
@@ -27,6 +27,7 @@
 
       onOpen: function(){
         console.log('onOpen');
+        var map = new Map("map");
       },
           
        
@@ -102,6 +103,41 @@
             document.getElementById("lupa_muni").style.display = "block";
         })
       },
+
+
+
+
+    realizaZoom: function() {
+        
+       var cod_concello = document.getElementById("SelectMuni").value;
+       var urlLimites = "http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer";
+       debugger
+       var a = esri.request({
+        //http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer/12/query?where=CONCELLO= " + concello + "&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=html
+            url:  urlLimites + "/12/query?where=CODCONC+%3D+" + cod_concello + "&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=json",
+            content: {
+                f: "json"
+            },
+            handleAs: "json",
+            callbackParamName: "callback"
+        }); 
+        a.then(function(e) {
+            // Creo que hay algún problema con "map"
+            var g = e.features;
+            var polygonJson = g[0].geometry;
+            var polygon = new esri.geometry.Polygon(polygonJson);
+            var polygonExtent = polygon.getExtent();
+            this.map.setExtent(polygonExtent);
+
+            // var g = e.features;
+            // var polygonJson = g[0].geometry;
+            // var polygon = new esri.geometry.Polygon(polygonJson);
+            // var centroid = polygon.getCentroid();
+            // this.map.centerAt(centroid);
+
+
+        })
+    },  
           
     
     cargaParroquias: function() {
@@ -174,6 +210,7 @@
             
             //document.getElementById("SelectParroquia").show()
         })},
+
     
         
     cargaPoboacions: function(b) {

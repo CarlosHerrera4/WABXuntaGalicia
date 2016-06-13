@@ -138,10 +138,10 @@
 							<div class="buscador">
 								<select id="provincia1" style="display:block;" data-dojo-attach-event="onchange:cargaConcellos">
 								  <option value="-1">Seleccione Provincia</option>
-								  <option value="15">A Coruña</option>
-								  <option value="27">Lugo</option>
-								  <option value="32">Ourense</option>
-								  <option value="36">Pontevedra</option>
+								  <option value="15" text="A Coruña">A Coruña</option>
+								  <option value="27" text="Lugo">Lugo</option>
+								  <option value="32" text="Ourense">Ourense</option>
+								  <option value="36" text="Pontevedra">Pontevedra</option>
 								</select>
 								<div id="lupa_provi" class="esriGeocoderSearch esriGeocoderIcon" style="display:block;"></div>
 							</div>
@@ -156,6 +156,7 @@
 								<div id="lupa_muni" class="esriGeocoderSearch esriGeocoderIcon" style="display:none;"></div>
 							</div>
 						</td>
+						<button data-dojo-attach-event="onclick:realizaZoom">Ir a!!</button>
 					</tr>
 					<tr id="trParroquias" style="display:none;">
 						<td><label for="SelectParroquia">Parroquia:</label></td>
