@@ -34,59 +34,7 @@ define(['dojo/_base/declare',
       },
 
       onOpen: function(){
-        //console.log('onOpen');
-
-        // var nuevaExtent = new Extent({
-        //   xmin: -20098296,
-        //   ymin:-2804413,
-        //   xmax:5920428,
-        //   ymax:15813776,
-        //   spatialReference:{wkid:54032}
-        // });
-        // debugger
-        // this.map.setExtent(nuevaExtent);
-
         
-
-        // var base1 = new FeatureLayer("http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer/4", {
-        //   showLabels: true,
-        //   outFields: ["*"]
-        // });
-        // var base2 = new FeatureLayer("http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer/5", {
-        //   showLabels: true,
-        //   outFields: ["*"]
-        // });
-        // var base3 = new FeatureLayer("http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer/6", {
-        //   showLabels: true,
-        //   outFields: ["*"]
-        // });
-        // var base4 = new FeatureLayer("http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer/7", {
-        //   showLabels: true,
-        //   outFields: ["*"]
-        // });
-        // var base = new FeatureLayer("http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer/", {
-        //   showLabels: true,
-        //   outFields: ["*"]
-        // });
-
-        // this.map.addLayers([base1,base2,base3,base4]);
-        // this.map.setExtent(base.initialExtent,true);
-
-
-        //var customExtentAndSR = new esri.geometry.Extent(475443.3882,4628906.1195,686706.0554,4849646.2585, new esri.SpatialReference({"wkid":25829}));
-        //this.map._initialExtent.setSpatialReference({wkid:25829});
-       //  var next = new Extent({
-       //    xmin:475443.3882,
-       //    ymin:4628906.1195,
-       //    xmax:686706.0554,
-       //    ymax:4849646.2585,
-       //    spatialReference:{wkid:25829}
-       //  });
-       // //102100
-       // //25829
-       //  this.map.setExtent(next);
-
-
        
 
 
@@ -108,9 +56,6 @@ define(['dojo/_base/declare',
             callbackParamName: "callback"
         }); 
 
-
-
-        //var nuevaextension;
         a.then(function(e) {
             // Creo que hay algún problema con "map"
             var g = e.features;
@@ -123,14 +68,7 @@ define(['dojo/_base/declare',
             //Cogemos el centroide del polígono y le hacemos zoom
             var centroid = polygon.getCentroid();
             centroid.spatialReference.wkid = 25829;
-            // that.map.centerAndZoom(centroid,6);
-
-            //var newpoint = new Point([475443.3882, 4628906.1195], new SpatialReference({ wkid: 25829 }));
-            //var ptomin = new Point([polygonExtent.xmin, polygonExtent.ymin], new SpatialReference({ wkid: 25829})); 
-            //var ptomax = new Point([polygonExtent.xmax, polygonExtent.ymax], new SpatialReference({ wkid: 25829}));
-
-
-
+            
             gsvc = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
             var outSR = new SpatialReference(102100);
             //var ptomin_bueno, ptomax_bueno;
@@ -140,56 +78,9 @@ define(['dojo/_base/declare',
               that.map.centerAndZoom(pt, 13);
             });
 
-
-
-            // gsvc.project([ ptomax ], outSR, function(projectedPoints_2){
-            //   ptomax_bueno = projectedPoints_2[0];
-            //   //that.map.centerAndZoom(pt, 6);
-            // });
-
-            // var x_min = ptomin_bueno.x;
-            // var y_min = ptomin_bueno.y;
-            // var x_max = ptomin_bueno.x;
-            // var y_max = ptomin_bueno.y;
-            // var sr = ptomax_bueno.spatialReference.wkid;
-
-            // var exten_buena = new Extent({
-            //   "xmin": x_min,
-            //   "ymin": y_min,
-            //   "xmax": x_max,
-            //   "ymax": y_max,
-            //   "spatialReference": {wkid: sr}
-            // });
-            // that.map.setExtent(exten_buena);
-
-
-
-
-            //that.map.setspati
-            //polygonExtent.spatialReference.wkid = 25829;
-
-            //that.map.setExtent(polygonExtent);     //Esta es la buena
-            //nuevaext = polygonExtent;
-            //nuevaExtension2(nuevaext);
-            //map.setExtent(polygonExtent);
-            //this.map.extent(polygonExtent);
-            //nuevaextension = polygon.getExtent();
         });
-        //this.map.setExtent(nuevaext, true);
-        //map.setExtent(nuevaext);
-        //var aea = nuevaextension;
-        // function nuevaExtension2 (nuevaext) {
-        //   //map.setExtent(nuevaext, true);
-        //   that.map.setExtent(nuevaext, true);
-        // };
-        // nuevaExtension2(nuevaext);
-        
       },  
 
-      // nuevaExtension2: function(b) {
-      //   this.map.setExtent(b);
-
-      // },
 
 
       cargaConcellos: function() {  
@@ -203,8 +94,8 @@ define(['dojo/_base/declare',
             }       
         }
 
-        document.getElementById("lupa_muni").style.visibility = "hidden";
-        document.getElementById("lupa_muni").removeAttribute("onclick");
+        // document.getElementById("lupa_muni").style.visibility = "hidden";
+        // document.getElementById("lupa_muni").removeAttribute("onclick");
         var op_prov = document.getElementById("provincia1").value;
         var d = [];
         var c = [];
@@ -237,7 +128,160 @@ define(['dojo/_base/declare',
                 j.add(h)
             }
             document.getElementById("trConcellos").style.display = "block";
-            document.getElementById("lupa_muni").style.display = "block";
+            //document.getElementById("lupa_muni").style.display = "block";
+        })
+      },
+
+      realizaZoomParroquia: function() {
+        var that = this;
+       var cod_parroquia = document.getElementById("SelectParroquia").value;
+       var urlLimites = "http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer";
+       debugger
+       var a = esri.request({
+        //http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer/12/query?where=CONCELLO= " + concello + "&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=html
+            url:  urlLimites + "/18/query?where=CodPARRO=" + cod_parroquia + "&outFields=CODPARRO,PARROQUIA&orderByFields=PARROQUIA&returnGeometry=true", //&returnDistinctValues=true",
+            content: {
+                f: "json"
+            },
+            handleAs: "json",
+            callbackParamName: "callback"
+        }); 
+
+        a.then(function(e) {
+            // Creo que hay algún problema con "map"
+            var g = e.features;
+            debugger
+
+            var polygonJson = g[0].geometry;
+            var polygon = new esri.geometry.Polygon(polygonJson);
+            var polygonExtent = polygon.getExtent();
+
+            //Cogemos el centroide del polígono y le hacemos zoom
+            var centroid = polygon.getCentroid();
+            centroid.spatialReference.wkid = 25829;
+            
+            gsvc = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+            var outSR = new SpatialReference(102100);
+            //var ptomin_bueno, ptomax_bueno;
+            //that.map.centerAndZoom(centroid, 6);
+            gsvc.project([ centroid ], outSR, function(projectedPoints){
+              pt = projectedPoints[0];
+              that.map.centerAndZoom(pt, 14);
+            });
+
+        });
+      },  
+
+      
+
+
+      cargaParroquias: function() {
+        //Recogemos concello elegido en la función anterior
+        // <option value="-1">Seleccione parroquia</option>
+        // var selec_concello = document.getElementById("SelectMuni").value;
+        var selec_concello = document.getElementById("SelectMuni").selectedOptions[0].text;
+        var parro_concello = document.getElementById("SelectMuni").selectedOptions[0].value;
+        //alert(selec_concello);
+        var num_options = document.getElementById("SelectParroquia").options.length;
+        if (num_options>1){
+            for (var i=0; i < num_options ; i++) {
+                var list = document.getElementById("SelectParroquia");
+                list.removeChild(list.childNodes[0]); 
+            }       
+        }
+        //Hasta aquí lo que hace es ver si hay algo elegido en Concellos, si lo hay, existirá una lista de Parroquias y por tanto borrará esa lista para crear una nueva
+
+        var urlLimites = "http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer";
+        var c = [];
+        var b = [];
+
+        var a = esri.request({
+            url: urlLimites + "/18/query?where=CodCONC =" + parro_concello + "&outFields=CODPARRO,PARROQUIA&orderByFields=PARROQUIA&returnGeometry=false&returnDistinctValues=true",
+            content: {
+                f: "json"
+            },
+            handleAs: "json",
+            callbackParamName: "callback"
+        });
+        a.then(function(g) {
+            var e = g.features;
+            var num_enti = e.length;
+            for (var count = 0; count <= num_enti - 1 ; count++){
+                var m = e[count].attributes.CODPARRO;
+                var k = e[count].attributes.PARROQUIA;
+                b.push(m);
+                c.push(k);
+            }
+
+            var f = dojo.byId("SelectParroquia");
+            for (var h = 0; h < c.length; h++) {
+                var j = document.createElement("option");
+                j.value = b[h];
+                j.text = c[h];
+                f.add(j)
+            }
+            document.getElementById("trParroquias").style.display = "block";
+            document.getElementById("SelectParroquia").style.display = "block";
+            
+        })
+      },
+
+
+      cargaPoboacions: function(b) {
+        var selec_parroquia = document.getElementById("SelectParroquia").selectedOptions[0].text;
+        var selec_parroquia_value = document.getElementById("SelectParroquia").selectedOptions[0].value;
+
+        var num_options = document.getElementById("SelectPobo").options.length;
+        if (num_options>1){
+            for (var i=0; i < num_options ; i++) {
+                var list = document.getElementById("SelectPobo");
+                list.removeChild(list.childNodes[0]); 
+            }       
+        }
+
+
+        // document.getElementById("SelectPobo").children().remove();
+        // document.getElementById("SelectPobo").append('<option value="' + -1 + '">Seleccione Poboación</option>');
+        // document.getElementById("lupa_pobo").hide();
+        // document.getElementById("lupa_pobo").removeAttr("onclick");
+        var urlLimites = "http://ideg.xunta.es/servizos/rest/services/Toponimia/toponimia_visor/MapServer";
+        var d = [];
+        var c = [];
+        var a = esri.request({
+            url: urlLimites + "/9/query?where=CodPARRO=" + selec_parroquia_value + "&outFields=NOMBRE,OBJECTID&orderByFields=NOMBRE&returnGeometry=false&returnDistinctValues=true",
+            content: {
+                f: "json"
+            },
+            handleAs: "json",
+            callbackParamName: "callback"
+        });
+        a.then(function(f) {
+            var j = f.features;
+            var num_enti = j.length;
+            for (var count = 0; count <= num_enti - 1 ; count++){
+                var l = j[count].attributes.OBJECTID;
+                var k = j[count].attributes.NOMBRE;
+                d.push(l);
+                c.push(k);
+            }
+
+            // $.each(j, function(i, m) {
+            //     var l = m.attributes.OBJECTID;
+            //     d.push(l);
+            //     var k = m.attributes.NOMBRE;
+            //     c.push(k)
+            // });
+            var e = document.getElementById("SelectPobo");
+            for (var g = 0; g < c.length; g++) {
+                var h = document.createElement("option");
+                h.value = d[g];
+                h.text = c[g];
+                e.add(h)
+            }
+            //$("#divPoboacions").removeClass("precarga").addClass("buscador");
+            document.getElementById("trPoboacions").style.display = "block";
+            document.getElementById("SelectPobo").style.display = "block";
+            //$("#SelectPobo").show()
         })
       },
 

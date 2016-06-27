@@ -13,7 +13,6 @@
 								  <option value="32" text="Ourense">Ourense</option>
 								  <option value="36" text="Pontevedra">Pontevedra</option>
 								</select>
-								<div id="lupa_provi" class="esriGeocoderSearch esriGeocoderIcon" style="display:block;"></div>
 							</div>
 						</td>
 					</tr>
@@ -21,23 +20,21 @@
 						<td><label for="SelectMuni">Concello:</label></td>
 						<td>
 							<div class="buscador">
-								<select id="SelectMuni" style="display:block;" >
+								<select id="SelectMuni" style="display:block;" data-dojo-attach-event="onchange:cargaParroquias">
 								</select>
-								<div id="lupa_muni" class="esriGeocoderSearch esriGeocoderIcon" style="display:none;"></div>
 							</div>
 						</td>
-						<button data-dojo-attach-event="onclick:realizaZoom">Ir a!!</button>
+						<td><button data-dojo-attach-event="onclick:realizaZoom">Ir a!!</button></td>
 					</tr>
 					<tr id="trParroquias" style="display:none;">
 						<td><label for="SelectParroquia">Parroquia:</label></td>
 						<td>
 							<div id="divParroquias" class="buscador">
-								<select id="SelectParroquia" style="display:none;">
+								<select id="SelectParroquia" style="display:none;" data-dojo-attach-event="onchange:cargaPoboacions">
 								</select>
-								
-								<div id="lupa_parroquia" class="esriGeocoderSearch esriGeocoderIcon" style="display:none;"></div>
 							</div>
-						</td>	
+						</td>
+						<td><button data-dojo-attach-event="onclick:realizaZoomParroquia">Ir a!!</button></td>	
 					</tr>					
 					<tr id="trPoboacions" style="display:none">
 						<td><label for="SelectPobo">Poboación:</label></td>
