@@ -1,8 +1,8 @@
 <div id="acordeoBuscaXeral">
 	<table><tr><td>Territorial</td></tr></table>
-		<div style="height:auto">
+		<div>
 					<table>
-					<tr>
+					<tr style="display:block">
 						<td><label for="provincia1">Provincia:</label></td>
 						<td>
 							<div class="buscador">
@@ -24,7 +24,7 @@
 								</select>
 							</div>
 						</td>
-						<td><button data-dojo-attach-event="onclick:realizaZoom">Ir a!!</button></td>
+						<td><button data-dojo-attach-event="onclick:realizaZoom">Ir allí!!</button></td>
 					</tr>
 					<tr id="trParroquias" style="display:none;">
 						<td><label for="SelectParroquia">Parroquia:</label></td>
@@ -34,7 +34,7 @@
 								</select>
 							</div>
 						</td>
-						<td><button data-dojo-attach-event="onclick:realizaZoomParroquia">Ir a!!</button></td>	
+						<td><button data-dojo-attach-event="onclick:realizaZoomParroquia">Ir allí!!</button></td>	
 					</tr>					
 					<tr id="trPoboacions" style="display:none">
 						<td><label for="SelectPobo">Poboación:</label></td>
@@ -42,9 +42,9 @@
 							<div id="divPoboacions" class="buscador">
 								<select id="SelectPobo" style="display:none;">
 								</select>
-								<div id="lupa_pobo" class="esriGeocoderSearch esriGeocoderIcon" style="display:none;"></div>
 							</div>
-						</td>	
+						</td>
+						<td><button data-dojo-attach-event="onclick:realizaZoomPoboacions">Ir allí!!</button></td>	
 					</tr>
 					</table>
 		</div>

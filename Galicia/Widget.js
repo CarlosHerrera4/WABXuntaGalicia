@@ -227,6 +227,49 @@ define(['dojo/_base/declare',
       },
 
 
+      realizaZoomPoboacions: function() {
+        var that = this;
+       // var nombre_poboacion = document.getElementById("SelectPobo").text;
+       var nombre_parroquia = document.getElementById("SelectParroquia").options[document.getElementById("SelectParroquia").selectedIndex].text;
+       var nombre_poboacion = document.getElementById("SelectPobo").options[document.getElementById("SelectPobo").selectedIndex].text;
+       var urlLimites = "http://ideg.xunta.es/servizos/rest/services/Toponimia/toponimia_visor/MapServer";
+       debugger
+       var a = esri.request({
+        //http://ideg.xunta.es/servizos/rest/services/LimitesAdministrativos/LimitesAdministrativos/MapServer/12/query?where=CONCELLO= " + concello + "&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&f=html
+            url:  urlLimites + "/9/query?where=NOMBRE='" + nombre_poboacion + "'AND+PARROQUIA='" + nombre_parroquia + "'&outFields=NOMBRE,OBJECTID&orderByFields=NOMBRE&returnGeometry=true&returnDistinctValues=false", //&returnDistinctValues=true",
+            content: {
+                f: "json"
+            },
+            handleAs: "json",
+            callbackParamName: "callback"
+        }); 
+
+        a.then(function(e) {
+            // Creo que hay algún problema con "map"
+            var g = e.features;
+            debugger
+
+            var pointJson = g[0].geometry.points[0];
+            var point = new esri.geometry.Point(pointJson);
+            //var polygonExtent = point.getExtent();
+
+            //Cogemos el centroide del polígono y le hacemos zoom
+            //var centroid = polygon.getCentroid();
+            point.spatialReference.wkid = 25829;
+            
+            gsvc = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+            var outSR = new SpatialReference(102100);
+            //var ptomin_bueno, ptomax_bueno;
+            //that.map.centerAndZoom(centroid, 6);
+            gsvc.project([ point ], outSR, function(projectedPoints){
+              pt = projectedPoints[0];
+              that.map.centerAndZoom(pt, 16);
+            });
+
+        });
+      }, 
+
+
       cargaPoboacions: function(b) {
         var selec_parroquia = document.getElementById("SelectParroquia").selectedOptions[0].text;
         var selec_parroquia_value = document.getElementById("SelectParroquia").selectedOptions[0].value;
@@ -239,11 +282,6 @@ define(['dojo/_base/declare',
             }       
         }
 
-
-        // document.getElementById("SelectPobo").children().remove();
-        // document.getElementById("SelectPobo").append('<option value="' + -1 + '">Seleccione Poboación</option>');
-        // document.getElementById("lupa_pobo").hide();
-        // document.getElementById("lupa_pobo").removeAttr("onclick");
         var urlLimites = "http://ideg.xunta.es/servizos/rest/services/Toponimia/toponimia_visor/MapServer";
         var d = [];
         var c = [];
