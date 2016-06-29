@@ -282,39 +282,45 @@ define(['dojo/_base/declare',
         })
       },
 
-      realizaZoomPoboacions: function() {
-        // var coor = document.getElementById("buscador_input_xy").text;
-        // var coor_1 = coor.split(",");
-        // var x = coor_1[0];
-        // var y = coor_1[1];
+      realizaZoomCoordenadas: function() {
+        var that = this;
+        var coor = document.getElementById("buscador_input_xy").value;
+        var coor_1 = coor.split(",");
+        var x = coor_1[0];
+        var y = coor_1[1];
 
-        // if (x < 291000 || x > 868605 || y < 4569700 || y > 4885600 || x == "NaN" || y == "NaN") {
-        //   alert(ERROCOORDENADAS);
-        //   return false
-        // } else {
-        //     this.map.graphics.clear();
-        //     var b = new esri.geometry.Point(c,e,map.spatialReference);
-        //     var d = new esri.symbol.SimpleMarkerSymbol({
-        //         color: [255, 255, 255, 64],
-        //         size: 16,
-        //         angle: -30,
-        //         xoffset: 0,
-        //         yoffset: 0,
-        //         type: "esriSMS",
-        //         style: "esriSMSCircle",
-        //         outline: {
-        //             color: [255, 255, 0, 255],
-        //             width: 3,
-        //             type: "esriSLS",
-        //             style: "esriSLSSolid"
-        //         }
-        //     });
-        //     var a = new esri.Graphic(b,d);
-        //     this.map.graphics.add(a);
-        //     this.map.setZoom(16);
-        //     this.map.centerAt(b)
-        // }
-
+        if (x < 291000 || x > 868605 || y < 4569700 || y > 4885600 || x == "NaN" || y == "NaN") {
+          alert("Introduzca unas coordenadas válidas");
+          return false
+        } else {
+            this.map.graphics.clear();
+            
+            var b = new esri.geometry.Point(x,y, new SpatialReference({ wkid: 25829 }));
+            
+            gsvc = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+            var outSR = new SpatialReference(102100);
+            gsvc.project([ b ], outSR, function(projectedPoints){
+              pt = projectedPoints[0];
+              var d = new esri.symbol.SimpleMarkerSymbol({
+                color: [255, 255, 255, 64],
+                size: 16,
+                angle: -30,
+                xoffset: 0,
+                yoffset: 0,
+                type: "esriSMS",
+                style: "esriSMSCircle",
+                outline: {
+                    color: [255, 255, 0, 255],
+                    width: 3,
+                    type: "esriSLS",
+                    style: "esriSLSSolid"
+                }
+              }); 
+              var a = new esri.Graphic(pt,d);
+              that.map.graphics.add(a);
+              that.map.centerAndZoom(pt, 16);
+            });
+        }
       },  
 
 
