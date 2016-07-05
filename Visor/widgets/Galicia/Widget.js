@@ -99,7 +99,7 @@ define(['dojo/_base/declare',
         var d = [];
         var c = [];
         var a = esri.request({
-            url: "/widgets/Galicia/js/concellos"+ op_prov + ".json",
+            url: "/WABXuntaGalicia/Visor/widgets/Galicia/js/concellos"+ op_prov + ".json",
             content: {
                 f: "json"
             },
