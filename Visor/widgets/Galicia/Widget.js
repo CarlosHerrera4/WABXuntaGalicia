@@ -350,6 +350,7 @@ define(['dojo/_base/declare',
       layersRequest.then(
         function(response) {
           var xml = xmlParser.parse(response.body.innerHTML);
+          if (xml.documentElement.getElementsByTagName("xcen").length != 0) {
           x_1 = (xml.documentElement.getElementsByTagName("xcen")[0]).childNodes[0];
           x = parseFloat(x_1.textContent);
 
@@ -388,6 +389,9 @@ define(['dojo/_base/declare',
                 that.map.graphics.add(a);
                 that.map.centerAndZoom(pt, 18);
               });
+          }
+          } else{
+                alert("Introduzca unos parámetros válidos");
           }
 
       }, function(error) {
