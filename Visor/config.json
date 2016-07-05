@@ -420,5 +420,10 @@
   "wabVersion": "2.0.1",
   "isTemplateApp": true,
   "isWebTier": false,
-  "httpProxy": {}
+  "httpProxy": {
+    "useProxy": true,
+    "alwaysUseProxy": false,
+    "url": "",
+    "rules": []
+  }
 }
