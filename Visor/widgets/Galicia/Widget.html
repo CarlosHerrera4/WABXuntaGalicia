@@ -1,0 +1,97 @@
+<div id="acordeoBuscaXeral">
+	<div >
+		<table><tr><td>TERRITORIAL</td></tr></table>
+			<hr style="background-color:black; height: 5px; widht: 10%" >
+			<div>
+						<table>
+						<tr style="display:block">
+							<td><label for="provincia1">Provincia:</label></td>
+							<td>
+								<div class="buscador">
+									<select id="provincia1" style="display:block;" data-dojo-attach-event="onchange:cargaConcellos">
+									  <option value="-1">Seleccione Provincia</option>
+									  <option value="15" text="A Coruña">A Coruña</option>
+									  <option value="27" text="Lugo">Lugo</option>
+									  <option value="32" text="Ourense">Ourense</option>
+									  <option value="36" text="Pontevedra">Pontevedra</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr id="trConcellos" style="display:none">
+							<td><label for="SelectMuni">Concello:</label></td>
+							<td>
+								<div class="buscador">
+									<select id="SelectMuni" style="display:block;" data-dojo-attach-event="onchange:cargaParroquias">
+									</select>
+								</div>
+							</td>
+							<td><button data-dojo-attach-event="onclick:realizaZoom"><img src="http://www.destapa.cl/Imagenes/lupa.png"></button></td>
+						</tr>
+						<tr id="trParroquias" style="display:none;">
+							<td><label for="SelectParroquia">Parroquia:</label></td>
+							<td>
+								<div id="divParroquias" class="buscador">
+									<select id="SelectParroquia" style="display:none;" data-dojo-attach-event="onchange:cargaPoboacions">
+									</select>
+								</div>
+							</td>
+							<td><button data-dojo-attach-event="onclick:realizaZoomParroquia"><img src="http://www.destapa.cl/Imagenes/lupa.png"></button></td>	
+						</tr>					
+						<tr id="trPoboacions" style="display:none">
+							<td><label for="SelectPobo">Poboación:</label></td>
+							<td>
+								<div id="divPoboacions" class="buscador">
+									<select id="SelectPobo" style="display:none;">
+									</select>
+								</div>
+							</td>
+							<td><button data-dojo-attach-event="onclick:realizaZoomPoboacions"><img src="http://www.destapa.cl/Imagenes/lupa.png"></button></td>	
+						</tr>
+						</table>
+			</div>
+	</div>
+	<div>
+	<br><br>
+		<table><tr><td>CATASTRO</td></tr></table>
+		<hr style="background-color:black; height: 5px; widht: 10%" >
+
+			<div>
+				<table>
+				<tr><td class="tdHeaderGeocoder" >
+					<div class="buscador">
+						<label>Introduzca provincia: </label>
+						<input id="provincia22" type="text" value"Pontevedra"> <br><br>
+						<label>Introduzca municipio: </label>
+						<input id="municipio" type="text" value="Pontevedra"> <br><br>
+						<label>Introduzca referencia catastral:</label>
+						<input id="buscador_input_catastro" tabindex="0"  autocomplete="on" type="text" style="color:#bbbbbb" value="36900A01800039">
+														
+						<div id="borratexto_catastro" class="esriGeocoderReset esriGeocoderIcon" title="Borrar busca" style="display:block"></div>
+					</div>
+				</td>
+				<td><button data-dojo-attach-event="onclick:buscaRefCatastral"><img src="http://www.destapa.cl/Imagenes/lupa.png"></button></td>	
+				</tr>
+				</table>
+			</div>
+	</div>
+	<div>
+	<br><br>
+		<table><tr><td>COORDENADAS</td></tr></table>
+			<hr style="background-color:black; height: 5px; widht: 10%" >
+
+			<div>
+				<table>
+				<tr><td class="tdHeaderGeocoder" >
+					<div class="buscador">
+						<input id="buscador_input_xy" tabindex="0"  autocomplete="on" type="text" style="color:#bbbbbb" value="Coord.X, Coord.Y" title='513414.55, 4800131.41'>
+														
+						<div id="borratexto_xy" class="esriGeocoderReset esriGeocoderIcon" title="Borrar busca" style="display:block"></div>
+					</div>
+				</td>
+				<td><button data-dojo-attach-event="onclick:realizaZoomCoordenadas"><img src="http://www.destapa.cl/Imagenes/lupa.png"></button></td>	
+				</tr>
+				</table>
+			</div>
+	</div>
+</div>
